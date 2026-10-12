@@ -31,7 +31,7 @@ public class AccountRestController {
   @ResponseStatus(HttpStatus.CREATED)
   public AccountResponse create(@Valid @RequestBody final CreateAccountRequest request) {
     return AccountResponse.from(
-        createAccountUseCase.execute(new CreateAccountCommand(request.userId())));
+        createAccountUseCase.execute(new CreateAccountCommand(request.userId(), request.name(), request.email())));
   }
 
   @GetMapping("/{id}")
