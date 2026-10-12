@@ -11,6 +11,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @Slf4j
 @RestControllerAdvice
@@ -44,6 +45,11 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public ResponseEntity<ErrorResponse> handleUnreadable(final HttpMessageNotReadableException e) {
     return build(HttpStatus.BAD_REQUEST, "El cuerpo de la solicitud no es un JSON válido.");
+  }
+  
+  @ExceptionHandler(NoResourceFoundException.class)
+  public ResponseEntity<ErrorResponse> handleNoResource(final NoResourceFoundException e) {
+    return build(HttpStatus.NOT_FOUND, "Recurso no encontrado.");
   }
 
   @ExceptionHandler(Exception.class)
